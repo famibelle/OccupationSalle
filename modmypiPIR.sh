@@ -11,7 +11,7 @@
 ### END INIT INFO
 
 # Change the next 3 lines to suit where you install your script and what you want to call it
-DIR=/usr/lib/cgi-bin/
+DIR=/usr/lib/cgi-bin
 DAEMON=$DIR/modmypiPIR.py
 DAEMON_NAME=modmypiPIR
 
@@ -29,7 +29,7 @@ PIDFILE=/var/run/$DAEMON_NAME.pid
 
 do_start () {
     log_daemon_msg "Starting system $DAEMON_NAME daemon"
-    start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS > /var/log/modmypiPIR.log 2>&1
+    start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS >> /var/log/modmypiPIR.log 2>&1
     log_end_msg $?
 }
 do_stop () {
