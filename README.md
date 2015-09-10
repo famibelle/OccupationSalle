@@ -6,7 +6,6 @@ Matériel:
 
 
 ### Installation des packages
-
 ```bash
 $ sudo apt-get install apache
 $ sudo apt-get install apache2
@@ -16,7 +15,6 @@ $ sudo apt-get install sqlite php5-sqlite
 ```
 
 ### Création de la base de données
-
 ```bash
 $ sqlite3 PIRlog.db`
 ```
@@ -32,14 +30,12 @@ COMMIT;
 la table à deux champs, le timestamp qui enregistre la date et le champs motion qui prend deux valeurs 0 ou 1 (0 = pas de mouvements, 1 = mouvement)
 
 On copie la base de données dans le répertoire /var/www/ et on change son ownership pour www-data
-
 ```bash
 $ sudo cp PIRlog.db /var/www/
 $ sudo chown www-data:www-data /var/www/PIRlog.db
 ```
 
 Installation du script qui va rajouter tout les 5 mn des 0 dans la base de données
-
 ```bash
 $ sudo chmod +x dummylogPIR.py
 $ sudo chown www-data:www-data dummylogPIR.py
@@ -48,12 +44,10 @@ $ sudo crontab -e
 ```
 
 Il faut rajouter la ligne suivante puis faire CTRL^X pour installer le CRON job
-
 `*/5 * * * * /usr/lib/cgi-bin/dummylogPIR.py`
 
 ### Installation du détecteur de mouvements en daemon(pour qu'il tourne en tache de fond)
 l'inspiration vient d http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-background-as-a-service-on-boot/
-
 ```bash
 $ sudo cp modmypiPIR.py /usr/lib/cgi-bin/
 $ chmod +x modmypiPIR
@@ -67,7 +61,6 @@ $ sudo /etc/init.d/modmypiPIR status
 ```
 
 On installe le daemon
-
 `$ sudo update-rc.d modmypiPIR defaults`
 
 ### fichier & emplacements
@@ -91,9 +84,9 @@ none	/var/log	tmpfs	size=1M, noatime	0	0
 ```
 
 #### on désactive le swapping
-
 ```bash
 $ sudo dphys-swapfile swapoff
 $ sudo dphys-swapfile uninstall
 $ sudo update-rc.d dphys-swapfile remove
 ```
+Attention une fois les logs désactivés Apache2 ne marche plus.
