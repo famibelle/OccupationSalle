@@ -3,6 +3,7 @@
 	<head>
 		<title>chart created with amCharts | amCharts</title>
 		<meta name="description" content="chart created using amCharts live editor" />
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 
 		<!-- amCharts javascript sources -->
 		<script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>

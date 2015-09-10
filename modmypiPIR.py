@@ -15,7 +15,7 @@ def log_presence():
     conn=sqlite3.connect("/var/www/PIRlog.db")
     curs=conn.cursor()
 
-    curs.execute("INSERT INTO TxOccupationBox values(datetime('now'), (?))", (1,))
+    curs.execute("INSERT INTO TxOccupationBox values(datetime('now','localtime'), 1)")
 
     # commit the changes
     conn.commit()
