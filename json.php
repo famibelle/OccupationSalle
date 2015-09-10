@@ -8,7 +8,8 @@ $datapie = array();
 $result->setFetchMode(PDO::FETCH_ASSOC);
 while ($row = $result->fetch()) {
 	extract($row);
-	$datapie[] = array(floatval($Temperature), $Time);
+	$datapie[] = array("timestamp" => $timestamp, "motion" => $motion);
 }
 $data = json_encode($datapie);
+echo $data
 ?>
