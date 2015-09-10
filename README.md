@@ -74,17 +74,14 @@ On installe le daemon
 
 ### fichier & emplacements
 `/var/www/json.php`
-
 `/var/www/mouvements.php`
-
 `/usr/lib/cgi-bin/dummylogPIR.py`
-
 `/usr/lib/cgi-bin/modmypiPIR.py`
-
 `/init.d/modmypiPIR`
 
 
-### Remarques : mon Raspberry Pi a connu un SD card corrupt qui l'a rendu totalement inutilsable. Les commandes ci-dessous visent à prevenir ce problème (source [ideaheap](http://www.ideaheap.com/2013/07/stopping-sd-card-corruption-on-a-raspberry-pi/)
+### Remarques : 
+Mon Raspberry Pi a connu un SD card corrupt qui l'a rendu totalement inutilisable. Les commandes ci-dessous visent à prevenir ce problème (source [ideaheap](http://www.ideaheap.com/2013/07/stopping-sd-card-corruption-on-a-raspberry-pi/)
 
 `sudo nano /etc/fstab`
 
