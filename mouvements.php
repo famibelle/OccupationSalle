@@ -55,6 +55,9 @@
 							"text": "Mouvements détectés"
 						}
 					],
+ 					"export": {
+						"enabled": true
+					},
 					"dataProvider": [
 
 <?php
@@ -68,7 +71,7 @@ $dbh = new PDO($dir) or die("cannot open database");
 
 // Define your SQL statement
 //$query = "SELECT * FROM TxOccupationBox";
-$query = "SELECT datetime((strftime('%s', timestamp) / 900) * 900, 'unixepoch') interval, count(*) cnt FROM TxOccupationBox GROUP by interval ORDER by interval";
+$query = "SELECT datetime((strftime('%s', timestamp) / 900) * 900, 'unixepoch') interval, sum(motion) cnt FROM TxOccupationBox GROUP by interval ORDER by interval";
 //$results  = $dbh->query($query);
 //echo $results;
 
