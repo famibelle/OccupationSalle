@@ -1,4 +1,4 @@
-# OccupationSalle
+# Taux d'Occupation de Salle de réunion
 mesure en temps réel le taux d'occupation d'une salle grace à un capteur infrarouge PIR et un Raspberry Pi
 Matériel:
 + [HC-SR501](http://letmeknow.fr/shop/capteurs/83-capteur-de-mouvement-infra-rouge.html?search_query=PIR&results=1) : capteur de mouvement infrarouge
@@ -83,7 +83,7 @@ none	/var/run	tmpfs	size=1M, noatime	0	0
 none	/var/log	tmpfs	size=1M, noatime	0	0
 ```
 
-#### on désactive le swapping
+on désactive le swapping
 ```bash
 $ sudo dphys-swapfile swapoff
 $ sudo dphys-swapfile uninstall
