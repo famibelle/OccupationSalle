@@ -4,6 +4,7 @@ $datapie = array();
 $dbname = "sqlite:/var/www/PIRlog.db";
 $db = new PDO($dbname);
 $query = "SELECT strftime('%w', timestamp) day, CAST(strftime('%H', timestamp) as INTEGER) hour, sum(motion) value FROM TxOccupationBox GROUP by day, hour ORDER by day, hour;";
+// strftime day of week 0-6 with Sunday==0 
 $result = $db->query($query);
 
 $result->setFetchMode(PDO::FETCH_ASSOC);
