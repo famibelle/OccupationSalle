@@ -40,13 +40,7 @@
 
 
       d3.json("hourly.php",
-        function(d) {
-          return {
-            d.day,
-            d.hour,
-            d.value
-          };
-        },
+
         function(error, data) {
           var colorScale = d3.scale.quantile()
               .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
