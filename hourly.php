@@ -9,7 +9,7 @@ $result = $db->query($query);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 while ($row = $result->fetch()) {
 	extract($row);
-	$datapie[] = array("day" => ($day + 1), "hour" => $hour, "value" => $value);
+	$datapie[] = array("day" => $day, "hour" => $hour, "value" => $value);
 }
 
 $data = json_encode($datapie);
