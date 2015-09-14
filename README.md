@@ -22,6 +22,19 @@ $ sudo apt-get install php5
 $ sudo apt-get install libapache2-mod-php5
 $ sudo apt-get install sqlite php5-sqlite
 ```
+### Récupération des packages 
+```bash
+$ git clone https://github.com/famibelle/OccupationSalle.git
+```
+### Installation des fichiers du server Apache dans le répertoire `/var/www`
+```bash
+$ sudo chown www-data:www-data hourly.php
+$ sudo cp hourly.php /var/www/
+$ sudo chown www-data:www-data mouvements.php
+$ sudo cp mouvements.php /var/www/
+$ sudo chown www-data:www-data index.html
+$ sudo cp index.html /var/www/
+```
 
 ### Création de la base de données
 ```bash
@@ -36,7 +49,7 @@ COMMIT;
 .quit
 ```
 
-la table à deux champs, le timestamp qui enregistre la date et le champs motion qui prend deux valeurs 0 ou 1 (0 = pas de mouvements, 1 = mouvement)
+La table a deux champs, le timestamp qui enregistre la date et le champs motion qui prend deux valeurs 0 ou 1 (0 = pas de mouvements, 1 = mouvement)
 
 On copie la base de données dans le répertoire /var/www/ et on change son ownership pour www-data
 ```bash
@@ -72,10 +85,18 @@ $ sudo /etc/init.d/modmypiPIR status
 On installe le daemon
 `$ sudo update-rc.d modmypiPIR defaults`
 
+
+### Utilisation
+Pour suivre le taux d'utilisation d'une salle de réunion il suffit de poser le boitier dans la salle de réunion et ensuite faire pointer son navigateur vers 
++ `http://@IP_Raspberry/index.html` pour avoir la vision cumulée ou vers
++ `http://@IP_Raspberry/mouvements.php`pour la vision chronologique
+
+
 ### fichier & emplacements
 ```
-/var/www/json.php
+/var/www/hourly.php
 /var/www/mouvements.php
+/var/www/index.html
 /usr/lib/cgi-bin/dummylogPIR.py
 /usr/lib/cgi-bin/modmypiPIR.py
 /init.d/modmypiPIR
