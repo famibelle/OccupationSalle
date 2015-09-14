@@ -1,8 +1,14 @@
 # Taux d'Occupation de Salle de réunion
-mesure en temps réel le taux d'occupation d'une salle grace à un capteur infrarouge PIR et un Raspberry Pi
+Le boitier permet de mesurer en temps réel le taux d'occupation d'une salle grace à un capteur infrarouge PIR (ref: HC-SR501) et un Raspberry Pi. La portée du capteur est entre 3m et 7m (ajustable) ce qui le rend parfait pour des salles de réunion de taille moyenne.
 Matériel:
 + [HC-SR501](http://letmeknow.fr/shop/capteurs/83-capteur-de-mouvement-infra-rouge.html?search_query=PIR&results=1) : capteur de mouvement infrarouge
-+ Raspberry Pi
++ [Raspberry Pi](http://letmeknow.fr/shop/board/275-raspberry-pi-2-modele-b.html)
++ [Boitier](http://letmeknow.fr/shop/accessoires/68-boitier-pour-raspberry-pi.html) pour Raspberry Pi (en option)
++ [Connecteur BERG](http://www.stquentin-radio.com/index.php?page=info_produit&info=2305&color=9&id=0&act=0) FEMELLE (3 points) à connecter sur le HC-SR501
++ [Cosses BERG] (http://www.stquentin-radio.com/index.php?page=info_produit&info=2283&color=9&id=0&act=0)
++ Nappe 26cts ou plus, selon le modèle du Raspberry
+
+![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Boitier%20Complet.jpg)
 
 
 ### Installation des packages
