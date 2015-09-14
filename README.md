@@ -56,7 +56,7 @@ Il faut rajouter la ligne suivante puis faire CTRL^X pour installer le CRON job
 `*/5 * * * * /usr/lib/cgi-bin/dummylogPIR.py`
 
 ### Installation du détecteur de mouvements en daemon(pour qu'il tourne en tache de fond)
-l'inspiration vient d http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-background-as-a-service-on-boot/
+l'inspiration vient de [blog.scphillips.com](http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-background-as-a-service-on-boot/)
 ```bash
 $ sudo cp modmypiPIR.py /usr/lib/cgi-bin/
 $ chmod +x modmypiPIR
@@ -82,7 +82,7 @@ On installe le daemon
 ```
 
 ### Remarques : 
-Mon Raspberry Pi a connu un SD card corrupt qui l'a rendu totalement inutilisable. Les commandes ci-dessous visent à prevenir ce problème (source [ideaheap](http://www.ideaheap.com/2013/07/stopping-sd-card-corruption-on-a-raspberry-pi/)
+Mon Raspberry Pi a connu un SD card corrupt qui l'a rendu totalement inutilisable. Les commandes ci-dessous visent à prevenir ce problème (source [ideaheap](http://www.ideaheap.com/2013/07/stopping-sd-card-corruption-on-a-raspberry-pi/))
 
 `sudo nano /etc/fstab`
 
