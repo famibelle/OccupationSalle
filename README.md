@@ -8,10 +8,10 @@ Matériel:
 + [Cosses BERG] (http://www.stquentin-radio.com/index.php?page=info_produit&info=2283&color=9&id=0&act=0)
 + Nappe 26cts ou plus, selon le modèle du Raspberry
 
-Boitier
+*Boitier*
 ![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Boitier%20Complet.jpg)
 
-Schéma de connection
+*Schéma de connection*
 ![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Fritzing.png)
 
 ### Installation des packages
@@ -25,7 +25,7 @@ $ sudo apt-get install sqlite php5-sqlite
 
 ### Création de la base de données
 ```bash
-$ sqlite3 PIRlog.db`
+$ sqlite3 PIRlog.db
 ```
 
 dans le shell de la base de données on crée la table qui va enregistrer les mouvements
