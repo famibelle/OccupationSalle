@@ -8,8 +8,11 @@ Matériel:
 + [Cosses BERG] (http://www.stquentin-radio.com/index.php?page=info_produit&info=2283&color=9&id=0&act=0)
 + Nappe 26cts ou plus, selon le modèle du Raspberry
 
+Boitier
 ![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Boitier%20Complet.jpg)
 
+Schéma de connection
+![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Fritzing.png)
 
 ### Installation des packages
 ```bash
