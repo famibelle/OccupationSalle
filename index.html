@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>Taux d'occupation des Box du 7A</title>
+    <h1>Taux d'occupation des Box du 7A</h1>
     <style>
       rect.bordered {
         stroke: #E6E6E6;
@@ -109,11 +110,19 @@
             .attr("y", height + gridSize);
       });
     </script>
-    Chaque point de la de la "heat map" represente un interval d'une heure. Les codes couleurs représentent le nombre de mouvements ayant eu lieu dans le box.
-    En regardant le schéma, il est facile de voir le niveau d'occupation du box.
-    Les chiffres donnent le nombre de mouvements détectés dans le box.
-    O => pas de mouvements, la pièce est vide.
+    <p>Chaque point de la de la "heat map" représente un intervalle d'une heure. </p>
+    <p>Les codes couleurs représentent le nombre de mouvements ayant eu lieu dans le box.</p>
+    <p>En regardant le schéma, il est facile de voir le niveau d'occupation du box.</p>
+    <p>Les chiffres donnent le nombre de mouvements détectés dans le box.
+    <li>O => pas de mouvements, la pièce est vide.</li>
+    <li>!0 => mouvement, la pièce est occupé<e/li>
+    </p>
     
 
   </body>
+  <footer>
+  <a href="http://www.twitter.com/medhi">@medhi</a>’s code
+  <a href="https://github.com/famibelle/OccupationSalle.git">code source</a>
+  <span class="date">14 Septembre 2015</span>
+</footer>
 </html>
