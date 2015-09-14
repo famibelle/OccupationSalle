@@ -4,7 +4,7 @@ Matériel:
 + [HC-SR501](http://letmeknow.fr/shop/capteurs/83-capteur-de-mouvement-infra-rouge.html?search_query=PIR&results=1) : capteur de mouvement infrarouge
 + Raspberry Pi
 
-![alt tag](https://raw.github.com/famibelle/OccupationSalle/blob/master/Boitier%20Complet.jpg)
+![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Boitier%20Complet.jpg)
    :height: 100px
    :width: 200 px
 
