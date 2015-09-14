@@ -4,7 +4,6 @@ Matériel:
 + [HC-SR501](http://letmeknow.fr/shop/capteurs/83-capteur-de-mouvement-infra-rouge.html?search_query=PIR&results=1) : capteur de mouvement infrarouge
 + [Raspberry Pi](http://letmeknow.fr/shop/board/275-raspberry-pi-2-modele-b.html)
 + [Boitier](http://letmeknow.fr/shop/accessoires/68-boitier-pour-raspberry-pi.html) pour Raspberry Pi (en option)
-+ Nappe 
 + [Connecteur BERG](http://www.stquentin-radio.com/index.php?page=info_produit&info=2305&color=9&id=0&act=0) FEMELLE (3 points) à connecter sur le HC-SR501
 + [Cosses BERG] (http://www.stquentin-radio.com/index.php?page=info_produit&info=2283&color=9&id=0&act=0)
 + Nappe 26cts ou plus, selon le modèle du Raspberry
