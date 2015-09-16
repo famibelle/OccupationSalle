@@ -1,34 +1,30 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<html>
+<!DOCTYPE html> <meta charset="utf-8"> <html>
   <head>
     <title>Taux d'occupation des Box du 7A</title>
     <h1>Taux d'occupation des Box du 7A</h1>
     <style>
       rect.bordered {
         stroke: #E6E6E6;
-        stroke-width:2px;   
+        stroke-width:2px;
       }
-
       text.mono {
         font-size: 9pt;
         font-family: Consolas, courier;
         fill: #aaa;
       }
-
       text.axis-workweek {
         fill: #000;
       }
-
       text.axis-worktime {
         fill: #000;
       }
     </style>
     <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="colorbrewer.min.js"></script>
   </head>
   <body>
     <div id="chart"></div>
-
     <script type="text/javascript">
       var margin = { top: 50, right: 0, bottom: 100, left: 30 },
           width = 960 - margin.left - margin.right,
@@ -36,24 +32,21 @@
           gridSize = Math.floor(width / 24),
           legendElementWidth = gridSize*2,
           buckets = 127,
-          colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
+          //colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
+	  colors = colorbrewer.GnYlRd[9];
           days = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
-          times = ["01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", "21h", "22h", "23h", "24h"];
-
-
+          times = ["01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", 
+"21h", "22h", "23h", "24h"];
       d3.json("hourly.php",
-
         function(error, data) {
           var colorScale = d3.scale.quantile()
               .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
               .range(colors);
-
           var svg = d3.select("#chart").append("svg")
               .attr("width", width + margin.left + margin.right)
               .attr("height", height + margin.top + margin.bottom)
               .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
           var dayLabels = svg.selectAll(".dayLabel")
               .data(days)
               .enter().append("text")
@@ -63,7 +56,6 @@
                 .style("text-anchor", "end")
                 .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
                 .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
-
           var timeLabels = svg.selectAll(".timeLabel")
               .data(times)
               .enter().append("text")
@@ -73,7 +65,6 @@
                 .style("text-anchor", "middle")
                 .attr("transform", "translate(" + gridSize / 2 + ", -6)")
                 .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
-
           var heatMap = svg.selectAll(".hour")
               .data(data)
               .enter().append("rect")
@@ -85,24 +76,20 @@
               .attr("width", gridSize)
               .attr("height", gridSize)
               .style("fill", colors[0]);
-
           heatMap.transition().duration(1000)
               .style("fill", function(d) { return colorScale(d.value); });
-
           heatMap.append("title").text(function(d) { return d.value; });
               
           var legend = svg.selectAll(".legend")
               .data([0].concat(colorScale.quantiles()), function(d) { return d; })
               .enter().append("g")
               .attr("class", "legend");
-
           legend.append("rect")
             .attr("x", function(d, i) { return legendElementWidth * i; })
             .attr("y", height)
             .attr("width", legendElementWidth)
             .attr("height", gridSize / 2)
             .style("fill", function(d, i) { return colors[i]; });
-
           legend.append("text")
             .attr("class", "mono")
             .text(function(d) { return "≥ " + Math.round(d); })
@@ -114,16 +101,31 @@
     <p>Les codes couleurs représentent le nombre de mouvements ayant eu lieu dans le box.</p>
     <p>En regardant le schéma, il est facile de voir le niveau d'occupation du box.</p>
     <p>Les chiffres donnent le nombre de mouvements détectés dans le box.
-    <li>O => pas de mouvements, la pièce est vide.</li>
-    <li>!0 => mouvement, la pièce est occupé<e/li>
+	<ul>
+	<li>0 => pas de mouvements, la pièce est vide.</li>
+	<li>!0 => mouvement, la pièce est occupée<e/li>
+	<li>"carré blanc" => pas de mesure</li>
+	</ul>
     </p>
-    <p><a href="mouvemements.php">vision chronologique</a></p>
+    <p><a href="mouvements.php">vision chronologique</a></p>
+    <p>le live ... à venir"
     
-
   </body>
   <footer>
-  <a href="http://www.twitter.com/medhi">@medhi</a>’s code
-  <a href="https://github.com/famibelle/OccupationSalle.git">code source</a>
+<p>
+<!-- Place this tag where you want the button to render. -->
+<a aria-label="Watch famibelle/OccupationSalle on GitHub" data-count-aria-label="# watchers on GitHub" data-count-api="/repos/famibelle/OccupationSalle#subscribers_count" data-count-href="/famibelle/OccupationSalle/watchers" data-style="mega" data-icon="octicon-eye" href="https://github.com/famibelle/OccupationSalle" class="github-button">Watch</a>
+<!-- Place this tag right after the last button or just before your close body tag. -->
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+
+<p>
+<a href=https://twitter.com/medhi class=twitter-follow-button data-show-count=true data-lang=en>@medhi</a>
+
+
+<script>
+	!function(t,e,r){var n,s=t.getElementsByTagName(e)[0];t.getElementById(r)||(n=t.createElement(e),n.id=r,n.src="https://platform.twitter.com/widgets.js",s.parentNode.insertBefore(n,s))}(document,"script","twitter-wjs");
+</script>
+ 
+  <p>
   <span class="date">14 Septembre 2015</span>
-</footer>
-</html>
+  </footer> </html>
