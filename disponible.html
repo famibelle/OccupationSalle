@@ -7,8 +7,7 @@ xhr.responseType = 'arraybuffer';
 
 xhr.onload = function(e) {
   var uInt8Array = new Uint8Array(this.response);
-  var query = "SELECT strftime('%s','now','localtime') maintenant, strftime('%s',timestamp) enregistrement FROM TxOccupationBox WHERE motion = 1 ORDER BY timestam
-p DESC LIMIT 1;";
+  var query = "SELECT strftime('%s','now','localtime') maintenant, strftime('%s',timestamp) enregistrement FROM TxOccupationBox WHERE motion = 1 ORDER BY timestamp DESC LIMIT 1;";
   var db = new SQL.Database(uInt8Array);
   var contents = db.exec(query);
   // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
