@@ -1,5 +1,4 @@
 <?php
-// Specify your sqlite database name and path
 $datapie = array();
 $dbname = "sqlite:/var/www/PIRlog.db";
 $db = new PDO($dbname);
