@@ -35,6 +35,8 @@ $ sudo chown www-data:www-data mouvements.php
 $ sudo cp mouvements.php /var/www/
 $ sudo chown www-data:www-data index.html
 $ sudo cp index.html /var/www/
+$ sudo chown www-data:www-data js/colorbrewer.min.js
+$ sudo cp js/colorbrewer.min.js /var/www/js/
 ```
 
 ### Création de la base de données
