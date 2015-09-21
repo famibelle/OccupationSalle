@@ -45,7 +45,7 @@ $ sqlite3 PIRlog.db
 dans le shell de la base de données on crée la table qui va enregistrer les mouvements
 ```sql
 BEGIN;
-CREATE TABLE TxOccupationBox (timestamp DATETIME, motion INTEGER);`
+CREATE TABLE TxOccupationBox (timestamp DATETIME, motion INTEGER);
 COMMIT;
 .quit
 ```
