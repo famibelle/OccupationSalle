@@ -1,7 +1,7 @@
 <!DOCTYPE html> <meta charset="utf-8"> <html>
   <head>
-    <title>Taux d'occupation des Box du 7A</title>
-    <h1>Taux d'occupation des Box du 7A</h1>
+    <title>Taux d'occupation du Box du 7AB1</title>
+    <h1>Taux d'occupation des Box du 7A-B1</h1>
     <style>
       rect.bordered {
         stroke: #E6E6E6;
@@ -76,7 +76,7 @@
               .attr("width", gridSize)
               .attr("height", gridSize)
               .style("fill", colors[0]);
-          heatMap.transition().duration(1000)
+          heatMap.transition().duration(3000)
               .style("fill", function(d) { return colorScale(d.value); });
           heatMap.append("title").text(function(d) { return d.value; });
               
@@ -97,19 +97,27 @@
             .attr("y", height + gridSize);
       });
     </script>
-    <p>Chaque point de la de la "heat map" représente un intervalle d'une heure. </p>
-    <p>Les codes couleurs représentent le nombre de mouvements ayant eu lieu dans le box.</p>
-    <p>En regardant le schéma, il est facile de voir le niveau d'occupation du box.</p>
-    <p>Les chiffres donnent le nombre de mouvements détectés dans le box.
+
+    <h3>Explications</h3>
+    Chaque point de la de la "heat map" représente un intervalle d'une heure. 
+    Les codes couleurs représentent le nombre de mouvements ayant eu lieu dans le box.
+    En regardant le schéma, il est facile de voir le niveau d'occupation du box.
+    Les chiffres donnent le nombre de mouvements détectés dans le box.
+    <p><strong>PS:</strong>aucun micro ni caméra n'est caché dans le boitier;-)
 	<ul>
 	<li>0 => pas de mouvements, la pièce est vide.</li>
 	<li>!0 => mouvement, la pièce est occupée<e/li>
 	<li>"carré blanc" => pas de mesure</li>
 	</ul>
     </p>
-    <p><a href="mouvements.php">vision chronologique</a></p>
-    <p>le live ... à venir"
-    
+    <h4><a href="disponible.php">Est ce que le  box est occupé?</a>
+    <h3>Autres DataViz</h3>
+    Très utiles lorsque l'on recherche une salle
+    <p>Les données sont aussi visualisables sous les formes suivantes:</p>
+	<ul>
+	<li><a href="mouvements.php">Vision chronologique</a></p></li>
+	<li><a href="jke.d3.ecg-master/demo/index.html">ElectroCardioGramme du box</a> ... en cours de codage ...</li>
+	</ul>
   </body>
   <footer>
 <p>
@@ -126,6 +134,6 @@
 	!function(t,e,r){var n,s=t.getElementsByTagName(e)[0];t.getElementById(r)||(n=t.createElement(e),n.id=r,n.src="https://platform.twitter.com/widgets.js",s.parentNode.insertBefore(n,s))}(document,"script","twitter-wjs");
 </script>
  
-  <p>
-  <span class="date">14 Septembre 2015</span>
+  <p> Ce prototype a été réalisé avec l'aide de Florence qui a su convaincre le chef, David  qui a trouvé plein d'astuces de codage, Ghyslaine qui a fourni les cartes SD, et toutes les équipes de la COM qui grace à leurs remarques avisées permmettent de rajouter de nouvelle fonctionalités.
+  <p><span class="date">14 Septembre 2015</span></p>
   </footer> </html>
