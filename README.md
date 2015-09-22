@@ -70,7 +70,7 @@ $ sudo crontab -e
 
 Il faut rajouter la ligne suivante puis faire CTRL^X pour installer le CRON job
 ```bash
-*/5 * * * * /usr/lib/cgi-bin/dummylogPIR.py`
+*/5 * * * * /usr/lib/cgi-bin/dummylogPIR.py
 ```
 ### Installation du détecteur de mouvements en daemon(pour qu'il tourne en tache de fond)
 l'inspiration vient de [blog.scphillips.com](http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-background-as-a-service-on-boot/)
