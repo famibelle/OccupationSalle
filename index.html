@@ -107,7 +107,7 @@
 	$.getJSON(
 		"disponible.php",
 		function(data){
-			$('#hourBox').html(data.Heures.toString()+":"+data.Minutes.toString()+":"+data.Secondes.toString());	        
+			$('#hourBox').html(data[0].Heures+":"+data[0].Minutes+":"+data[0].Secondes);	        
 		}
 	);
       	
