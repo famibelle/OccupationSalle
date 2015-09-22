@@ -106,7 +106,7 @@
 	$.getJSON(
 		"disponible.php",
 		function(data){
-			$('#hourBox').html("le box est vide depuis" + data[0].Heures + "heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes");	        
+			$('#hourBox').html("<h1>le box est vide depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h1>");
 		}
 	);
       	setTimeout(showTimeOccupy, 2000);
