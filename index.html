@@ -108,7 +108,12 @@
 	$.getJSON(
 		"disponible.php",
 		function(data){
-			$('#hourBox').html("<h1>le box est vide depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h1>");
+			if (data[0].secondes<300) {
+				$('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn, dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3>");
+			}
+			else {
+				$('#hourBox').html("<h3>le box est vide depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3>");
+			}
 		}
 	);
       	setTimeout(showTimeOccupy, 2000);
