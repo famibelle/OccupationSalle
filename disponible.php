@@ -14,7 +14,7 @@ while ($row = $result->fetch()) {
 	$Heures = floor($secondes / 3600);
 	$Minutes = ($secondes / 60) % 60;
 	$Secondes = $secondes % 60;
-	$datapie[] = array("Heures" => $Heures, "Minutes" => $Minutes , "Secondes" => $Secondes, "secondes" => "$secondes");
+	$datapie[] = array("Heures" => $Heures, "Minutes" => $Minutes , "Secondes" => $Secondes, "secondes" => $secondes);
 }
 
 $data = json_encode($datapie);
