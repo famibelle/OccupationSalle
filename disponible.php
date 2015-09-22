@@ -14,14 +14,7 @@ while ($row = $result->fetch()) {
 	$Heures = floor($secondes / 3600);
 	$Minutes = ($secondes / 60) % 60;
 	$Secondes = $secondes % 60;
-	$datapie[] = array("Heures" => $Heures, "Minutes" => $Minutes , "Secondes" => $Secondes);
-/*	echo "Aucun mouvement depuis " . gmdate("H:i:s", $secondes);
-	if ($secondes> 300) {
-		echo "<p>le box est vide depuis " . $Heures . " heures " . $Minutes .  " minutes et "  . $Secondes . " secondes";
-	}
-	else {
-		echo "<p>le box est occupé";
-	}*/
+	$datapie[] = array("Heures" => $Heures, "Minutes" => $Minutes , "Secondes" => $Secondes, "secondes" => "$secondes");
 }
 
 $data = json_encode($datapie);
