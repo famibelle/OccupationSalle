@@ -103,14 +103,12 @@
       });
       
       var showTimeOccupy = function() {
-      	
 	$.getJSON(
 		"disponible.php",
 		function(data){
-			$('#hourBox').html(data[0].Heures+":"+data[0].Minutes+":"+data[0].Secondes);	        
+			$('#hourBox').html("le box est vide depuis" + data[0].Heures + "heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes");	        
 		}
 	);
-      	
       	setTimeout(showTimeOccupy, 2000);
       }
       
@@ -128,7 +126,6 @@
 	<li>"carré blanc" => pas de mesure</li>
 	</ul>
     </p>
-    <h4><a href="disponible.php">Est ce que le  box est occupé?</a>
     <div id="hourBox"></div>
     <h3>Autres DataViz</h3>
     Très utiles lorsque l'on recherche une salle
