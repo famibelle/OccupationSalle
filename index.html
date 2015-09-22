@@ -24,6 +24,7 @@
       }
     </style>
     <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="js/colorbrewer.min.js"></script>
   </head>
@@ -100,6 +101,19 @@
             .attr("x", function(d, i) { return legendElementWidth * i; })
             .attr("y", height + gridSize);
       });
+      
+      var showTimeOccupy = function() {
+      	
+	$.getJSON(
+		"disponible.php",
+		function(result){
+			$('#hourBox').html(result.Heures+":"+result.Minutes+":"+result.Secondes);	        
+		}
+	);
+      	
+      	setTimeout(showTimeOccupy, 300);
+      }
+      
     </script>
 
     <h3>Explications</h3>
@@ -115,6 +129,7 @@
 	</ul>
     </p>
     <h4><a href="disponible.php">Est ce que le  box est occupé?</a>
+    <div id="hourBox"></div>
     <h3>Autres DataViz</h3>
     Très utiles lorsque l'on recherche une salle
     <p>Les données sont aussi visualisables sous les formes suivantes:</p>
@@ -135,6 +150,8 @@
 
 
 <script>
+	showTimeOccupy();
+
 	!function(t,e,r){var n,s=t.getElementsByTagName(e)[0];t.getElementById(r)||(n=t.createElement(e),n.id=r,n.src="https://platform.twitter.com/widgets.js",s.parentNode.insertBefore(n,s))}(document,"script","twitter-wjs");
 </script>
  
