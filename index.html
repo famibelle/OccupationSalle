@@ -1,7 +1,11 @@
 <!DOCTYPE html> <meta charset="utf-8"> <html>
   <head>
-    <title>Taux d'occupation du Box du 7AB1</title>
-    <h1>Taux d'occupation des Box du 7A-B1</h1>
+    <script type="text/javascript">
+    var Box = location.hostname;
+    document.write("<title>Taux d'occupation de " + Box + "</title>");
+    document.write("<h1>Taux d'occupation de " + Box + "</h1>");
+    </script>
+
     <style>
       rect.bordered {
         stroke: #E6E6E6;
@@ -21,7 +25,7 @@
     </style>
     <script src="http://d3js.org/d3.v3.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="colorbrewer.min.js"></script>
+    <script src="js/colorbrewer.min.js"></script>
   </head>
   <body>
     <div id="chart"></div>
