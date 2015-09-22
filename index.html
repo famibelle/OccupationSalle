@@ -106,12 +106,12 @@
       	
 	$.getJSON(
 		"disponible.php",
-		function(result){
-			$('#hourBox').html(result.Heures+":"+result.Minutes+":"+result.Secondes);	        
+		function(data){
+			$('#hourBox').html(data.Heures.toString()+":"+data.Minutes.toString()+":"+data.Secondes.toString());	        
 		}
 	);
       	
-      	setTimeout(showTimeOccupy, 300);
+      	setTimeout(showTimeOccupy, 2000);
       }
       
     </script>
