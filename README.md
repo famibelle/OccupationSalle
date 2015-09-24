@@ -124,3 +124,13 @@ $ sudo dphys-swapfile uninstall
 $ sudo update-rc.d dphys-swapfile remove
 ```
 Attention une fois les logs désactivés Apache2 ne marche plus.
+### note d'usage
+Je suis passé sous Raspberry PI B+. Le board offre plus de port GPIO mais le boitier ne correspond plus. J'ai testé un niveau type de nappes droites, mais le problème est que le port OUT du [HC-SR501](http://letmeknow.fr/shop/capteurs/83-capteur-de-mouvement-infra-rouge.html?search_query=PIR&results=1) est entre le VCC et le GND alors que sur le Raspberry Pi B+ le IN est à coté du VCC et du GND. J'ai bien essayé de forcer une sortie du GPIO à l'état haut pour simuler un VCC mais le capteur se met à détecter des dizaine de mouvememts fantomes par seconde. Bref ça marche pas.
+```python
+GPIO.setmode(GPIO.BCM)
+PIR_PIN = 24
+PIR_VCC = 23
+GPIO.setup(PIR_PIN, GPIO.IN)
+GPIO.setup(PIR_VCC, GPIO.OUT)           # met GPIO PIR_VCC comme VCC (emulation VCC)
+GPIO.output(PIR_VCC, 1)
+```
