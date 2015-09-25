@@ -108,11 +108,20 @@
 	$.getJSON(
 		"disponible.php",
 		function(data){
+                        if (data[0].secondes<60) {
+                                $('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Secondes + " secondes</p></h3><img src='images/led-sign-inuse-red.jpg'>");
+                        }
+
 			if (data[0].secondes<300) {
-				$('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn, dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3>");
+				$('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</p></h3>");
 			}
 			else {
-				$('#hourBox').html("<h3>le box est vide depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3>");
+				if (data[0].Heures == 0) {
+					$('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3>");
+				}
+				else {
+					$('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3>");
+				}
 			}
 		}
 	);
