@@ -1,9 +1,11 @@
 <!DOCTYPE html> <meta charset="utf-8"> <html>
   <head>
+  <link id="favicon" rel="shortcut icon" type="image/x-icon" href="images/libre.ico" />
+
     <script type="text/javascript">
     var Box = location.hostname;
-    document.write("<title>Taux d'occupation de " + Box + "</title>");
-    document.write("<h1>Taux d'occupation de " + Box + "</h1>");
+    document.write("<title>Fréquentation du " + Box + "</title>");
+    document.write("<h1>Suivi en temps réel de la fréquentation du " + Box + "</h1>");
     </script>
 
     <div id="hourBox"></div>
@@ -40,10 +42,9 @@
           legendElementWidth = gridSize*2,
           buckets = 127,
           //colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
-	  colors = colorbrewer.GnYlRd[9];
+    colors = colorbrewer.GnYlRd[9];
           days = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
-          times = ["01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", 
-"21h", "22h", "23h", "24h"];
+          times = ["00h", "01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", "21h", "22h", "23h"];
       d3.json("hourly.php",
         function(error, data) {
           var colorScale = d3.scale.quantile()
@@ -105,27 +106,30 @@
       });
       
       var showTimeOccupy = function() {
-	$.getJSON(
-		"disponible.php",
-		function(data){
+  $.getJSON(
+    "disponible.php",
+    function(data){
                         if (data[0].secondes<60) {
                                 $('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">");
                         }
 
-			if (data[0].secondes<300) {
-				$('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">");
-			}
-			else {
-				if (data[0].Heures == 0) {
-					$('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
-				}
-				else {
-					$('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
-				}
-			}
-		}
-	);
-      	setTimeout(showTimeOccupy, 2000);
+      if (data[0].secondes<300) {
+        $('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">");
+        $("#favicon").attr("href","images/occupe.ico");
+
+      }
+      else {
+        $("#favicon").attr("href","images/libre.ico");
+        if (data[0].Heures == 0) {
+          $('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
+        }
+        else {
+          $('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
+        }
+      }
+    }
+  );
+        setTimeout(showTimeOccupy, 2000);
       }
       
     </script>
@@ -136,19 +140,19 @@
     En regardant le schéma, il est facile de voir le niveau d'occupation du box.
     Les chiffres donnent le nombre de mouvements détectés dans le box.
     <p><strong>PS:</strong>aucun micro ni caméra n'est caché dans le boitier;-)
-	<ul>
-	<li>0 => pas de mouvements, la pièce est vide.</li>
-	<li>!0 => mouvement, la pièce est occupée<e/li>
-	<li>"carré blanc" => pas de mesure</li>
-	</ul>
+  <ul>
+  <li>0 => pas de mouvements, la pièce est vide.</li>
+  <li>!0 => mouvement, la pièce est occupée<e/li>
+  <li>"carré blanc" => pas de mesure</li>
+  </ul>
     </p>
     <h3>Autres DataViz</h3>
     Très utiles lorsque l'on recherche une salle
     <p>Les données sont aussi visualisables sous les formes suivantes:</p>
-	<ul>
-	<li><a href="mouvements.php">Vision chronologique</a></p></li>
-	<li><a href="jke.d3.ecg-master/demo/index.html">ElectroCardioGramme du box</a> ... en cours de codage ...</li>
-	</ul>
+  <ul>
+  <li><a href="mouvements.php">Vision chronologique</a></p></li>
+  <li><a href="jke.d3.ecg-master/demo/index.html">ElectroCardioGramme du box</a> ... en cours de codage ...</li>
+  </ul>
   </body>
   <footer>
 <p>
@@ -162,9 +166,9 @@
 
 
 <script>
-	showTimeOccupy();
+  showTimeOccupy();
 
-	!function(t,e,r){var n,s=t.getElementsByTagName(e)[0];t.getElementById(r)||(n=t.createElement(e),n.id=r,n.src="https://platform.twitter.com/widgets.js",s.parentNode.insertBefore(n,s))}(document,"script","twitter-wjs");
+  !function(t,e,r){var n,s=t.getElementsByTagName(e)[0];t.getElementById(r)||(n=t.createElement(e),n.id=r,n.src="https://platform.twitter.com/widgets.js",s.parentNode.insertBefore(n,s))}(document,"script","twitter-wjs");
 </script>
  
   <p> Ce prototype a été réalisé avec l'aide de Florence qui a su convaincre le chef, David  qui a trouvé plein d'astuces de codage, Ghyslaine qui a fourni les cartes SD, et toutes les équipes de la COM qui grace à leurs remarques avisées permmettent de rajouter de nouvelle fonctionalités.
