@@ -21,6 +21,11 @@ Le boitier permet de mesurer en temps réel le taux d'occupation d'une salle gra
 
 ![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/images/FreqBox2.jpg)
 
+**Tableau de bord de suivi du taux de fréquentation de la salle**
+
+![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/images/screenshot-FreqBox.png)
+
+
 ### Installation des packages
 ```bash
 $ sudo apt-get install apache
