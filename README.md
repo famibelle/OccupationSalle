@@ -10,10 +10,13 @@ Le boitier permet de mesurer en temps réel le taux d'occupation d'une salle gra
 + Nappe 26cts ou plus, selon le modèle du Raspberry
 
 **Boitier**
-![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Boitier%20Complet.jpg)
+![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/images/Boitier%20Complet.jpg)
 
 **Schéma de connection**
-![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/Fritzing.png)
+![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/images/Fritzing.png)
+
+**Boitier en situation dans le box**
+![alt tag](https://github.com/famibelle/OccupationSalle/blob/master/images/FreqBox2.jpg)
 
 ### Installation des packages
 ```bash
