@@ -2,10 +2,10 @@
 // thanks to http://stackoverflow.com/questions/3986469/export-sqlite-table-using-php
 $Query = "SELECT * FROM TxOccupationBox WHERE motion = 1;";
 $dbname = "sqlite:/var/www/PIRlog.db";
-
+$filename = gethostname() . "_" . date("Y-m-d") . "_DonnéesBrutes.csv";
 // Set headers to make the browser download the results as a csv file
 header("Content-type: text/csv");
-header("Content-Disposition: attachment; filename=DonnéesBrutes.csv");
+header("Content-Disposition: attachment; filename=" . $filename);
 header("Pragma: no-cache");
 header("Expires: 0");
 
