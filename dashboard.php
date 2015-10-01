@@ -7,7 +7,7 @@ for ($jour = 0; $jour < 7; $jour++) {
 		$conn = new PDO($dbname);
 
 		// Query
-		$Query = "SELECT strftime('%w', timestamp) jour, strftime('%H', timestamp) heure, sum(motion) as mouvements FROM TxOccupationBox WHERE jour ='" . $jour$
+		$Query = "SELECT strftime('%w', timestamp) jour, strftime('%H', timestamp) heure, sum(motion) as mouvements FROM TxOccupationBox WHERE jour ='" . $jour . "' AND heure = '" . $heure . "';";
 		echo $Query . "\n";
 		$query = $conn->query($Query);
 		$row[$jour][$heure] = $query->fetch(PDO::FETCH_ASSOC);
