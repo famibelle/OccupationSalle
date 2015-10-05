@@ -10,9 +10,22 @@ for ($heure = 0; $heure < 24; $heure++) {
 	$Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
 	$query = $conn->query($Query);
 	
+	$prevHeure = false;
+	
 	while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+		extract($row);
 		
-		$datapie[ "State" => $row->heure ][ $days[$row->jour] ] = $row->mouvements;
+		if ($heure == $prevHeure) {
+			if ( $prevHeure != false ) {
+				$datapie[] = array( "State" => $prevHeure, "freq" => $days );
+			}
+			$days = array();
+			$prevHeure = $heure;
+		}	
+		else {
+			$days[$jour] = $mouvements;
+		}
+
 		// Print the line
 		// Fetch the next line
 		//extract($row);
