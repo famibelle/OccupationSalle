@@ -240,7 +240,11 @@ function dashboard(id, fData){
 </script>
 
 <script>
-var freqData=[
+var freqData = function() {
+  $.getJSON(
+    "dashboard.php",
+    function(data){}
+/*var freqData=[
  {State:'00h',freq:{Lundi:4786, Mardi:1319, Mercredi:249, Jeudi:455, Vendredi:4155, Samedi:125, Dimanche:211}}
 ,{State:'02h',freq:{Lundi:932, Mardi:2149, Mercredi:418, Jeudi:855, Vendredi:1455, Samedi:125, Dimanche:911}}
 ,{State:'04h',freq:{Lundi:4481, Mardi:3304, Mercredi:948, Jeudi:655, Vendredi:4515, Samedi:325, Dimanche:711}}
@@ -255,6 +259,7 @@ var freqData=[
 ,{State:'22h',freq:{Lundi:1819, Mardi:3247, Mercredi:1903, Jeudi:855, Vendredi:9455, Samedi:7625, Dimanche:5111}}
 ,{State:'24h',freq:{Lundi:1819, Mardi:2457, Mercredi:123, Jeudi:155, Vendredi:4855, Samedi:7215, Dimanche:1211}}
 ];
+*/
 
 dashboard('#dashboard',freqData);
 </script>
