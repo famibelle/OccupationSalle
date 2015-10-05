@@ -2,6 +2,8 @@
 $dbname = "sqlite:/var/www/PIRlog.db";
 $datapie = array();
 $jourSemaine = array( 0 => "Lundi", 1 => "Mardi", 2 => "Mercredi", 3 => "Jeudi", 4 => "Vendredi", 5 => "Jeudi", 6 => "Dimanche");
+$vecteurState = array( 0=>"00h" , 2=>"02h", 4=>"04h", 6=>"06h", 8=>"08h", 10=>"10h", 
+	12=>"12h", 14=>"14h", 16=>"16h", 18=>"18h", 20=>"20h" , 22=>"22h", 24=>"24h");
 
 // Connect to DB
 $conn = new PDO($dbname);
@@ -17,7 +19,7 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
 	if ($heure != $prevHeure) {
 		if ( $prevHeure != false ) {
-			$datapie[] = array( "State" => $prevHeure, "freq" => $days );
+			$datapie[] = array( "State" => $vecteurState[$prevHeure], "freq" => $days );
 		}
 		$days = array();
 		$prevHeure = $heure;
