@@ -1,20 +1,23 @@
 <?php
 $dbname = "sqlite:/var/www/PIRlog.db";
 $datapie = array();
+$days = array( 0 => "Lundi", 1 => "Mardi", 2 => "Mercredi", 3 => "Jeudi", 4 => "Vendredi", 5 => "Jeudi", 6 => "Dimanche");
 for ($heure = 0; $heure < 24; $heure++) {
 	// Connect to DB
 	$conn = new PDO($dbname);
 
 	// Query
-	$Query = "SELECT strftime('%H', timestamp) heure, strftime('%w', timestamp) jour, sum(motion) as mouvements FROM TxOccupationBox WHERE heure ='" . $heure . "' GROUP BY jour;";
+	$Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
 	$query = $conn->query($Query);
-	$row = $query->fetch(PDO::FETCH_ASSOC);
-	while ($row != false) {
+	
+	while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+		
+		$datapie[ "State" => $row->heure ][ $days[$row->jour] ] = $row->mouvements;
 		// Print the line
 		// Fetch the next line
-		extract($row);
-		$datapie[] = array("State" => $heure , "jour" => $jour , "value" => $mouvements);
-		$row = $query->fetch(PDO::FETCH_ASSOC);
+		//extract($row);
+		//$datapie[] = array("State" => $heure , "jour" => $jour , "value" => $mouvements);
+		//$row = $query->fetch(PDO::FETCH_ASSOC);
 	}
 }
 //echo json_encode($row);
