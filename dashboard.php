@@ -2,37 +2,37 @@
 $dbname = "sqlite:/var/www/PIRlog.db";
 $datapie = array();
 $days = array( 0 => "Lundi", 1 => "Mardi", 2 => "Mercredi", 3 => "Jeudi", 4 => "Vendredi", 5 => "Jeudi", 6 => "Dimanche");
-for ($heure = 0; $heure < 24; $heure++) {
-	// Connect to DB
-	$conn = new PDO($dbname);
 
-	// Query
-	$Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
-	$query = $conn->query($Query);
+// Connect to DB
+$conn = new PDO($dbname);
+
+// Query
+$Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
+$query = $conn->query($Query);
+
+$prevHeure = false;
+
+while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+	extract($row);
 	
-	$prevHeure = false;
-	
-	while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-		extract($row);
-		
-		if ($heure == $prevHeure) {
-			if ( $prevHeure != false ) {
-				$datapie[] = array( "State" => $prevHeure, "freq" => $days );
-			}
-			$days = array();
-			$prevHeure = $heure;
-		}	
-		else {
-			$days[$jour] = $mouvements;
+	if ($heure == $prevHeure) {
+		if ( $prevHeure != false ) {
+			$datapie[] = array( "State" => $prevHeure, "freq" => $days );
 		}
-
-		// Print the line
-		// Fetch the next line
-		//extract($row);
-		//$datapie[] = array("State" => $heure , "jour" => $jour , "value" => $mouvements);
-		//$row = $query->fetch(PDO::FETCH_ASSOC);
+		$days = array();
+		$prevHeure = $heure;
+	}	
+	else {
+		$days[$jour] = $mouvements;
 	}
+
+	// Print the line
+	// Fetch the next line
+	//extract($row);
+	//$datapie[] = array("State" => $heure , "jour" => $jour , "value" => $mouvements);
+	//$row = $query->fetch(PDO::FETCH_ASSOC);
 }
+
 //echo json_encode($row);
 $data = json_encode($datapie);
 echo $data;
