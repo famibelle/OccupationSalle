@@ -40,6 +40,7 @@ rect:hover {  fill:blue; }
 <div id='dashboard'>
 </div>
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://code.jquery.com/jquery.min.js"></script>
 <script>
 function dashboard(id, fData){
     var barColor = 'steelblue';
@@ -240,14 +241,12 @@ function dashboard(id, fData){
 </script>
 
 <script>
-var freqData = function() {
-  $.getJSON(
-    "dashboard.php",
-    function(data){}
-    )
-}
-/*var freqData=[
- {State:'00h',freq:{Lundi:4786, Mardi:1319, Mercredi:249, Jeudi:455, Vendredi:4155, Samedi:125, Dimanche:211}}
+var freqData;
+$.getJSON(  "dashboard.php",   function(data){ freqData = data; }   );
+
+/*
+var freqData=[
+ {State:'00h',freq:{Mercredi:249, Jeudi:455, Vendredi:4155, Samedi:125, Dimanche:211}}
 ,{State:'02h',freq:{Lundi:932, Mardi:2149, Mercredi:418, Jeudi:855, Vendredi:1455, Samedi:125, Dimanche:911}}
 ,{State:'04h',freq:{Lundi:4481, Mardi:3304, Mercredi:948, Jeudi:655, Vendredi:4515, Samedi:325, Dimanche:711}}
 ,{State:'06h',freq:{Lundi:119, Mardi:247, Mercredi:123, Jeudi:355, Vendredi:4551, Samedi:1725, Dimanche:611}}
@@ -259,10 +258,11 @@ var freqData = function() {
 ,{State:'18h',freq:{Lundi:185, Mardi:2447, Mercredi:12073, Jeudi:1955, Vendredi:4955, Samedi:25, Dimanche:171}}
 ,{State:'20h',freq:{Lundi:289, Mardi:2467, Mercredi:1253, Jeudi:555, Vendredi:1455, Samedi:7725, Dimanche:1771}}
 ,{State:'22h',freq:{Lundi:1819, Mardi:3247, Mercredi:1903, Jeudi:855, Vendredi:9455, Samedi:7625, Dimanche:5111}}
-,{State:'24h',freq:{Lundi:1819, Mardi:2457, Mercredi:123, Jeudi:155, Vendredi:4855, Samedi:7215, Dimanche:1211}}
+,{State:'24h',freq:{}}
 ];
-*/
 
+var freqData = [{"State":"08h","freq":{"Mercredi":"45","Jeudi":"14","Vendredi":"179"}},{"State":"10h","freq":{"Mercredi":"400","Jeudi":"834","Vendredi":"179"}},{"State":"12h","freq":{"Mercredi":"57","Jeudi":"37","Vendredi":"134"}},{"State":"14h","freq":{"Mercredi":"468","Jeudi":"188","Vendredi":"415"}},{"State":"16h","freq":{"Mercredi":"239","Jeudi":"87","Vendredi":"674"}},{"State":"18h","freq":{"Mercredi":"20","Jeudi":"2","Vendredi":"33"}},{"State":"20h","freq":[]}];
+*/
 dashboard('#dashboard',freqData);
 </script>
 source http://bl.ocks.org/NPashaP/96447623ef4d342ee09b
