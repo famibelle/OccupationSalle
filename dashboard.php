@@ -14,7 +14,7 @@ $prevHeure = false;
 
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 	extract($row);
-	
+
 	if ($heure != $prevHeure) {
 		if ( $prevHeure != false ) {
 			$datapie[] = array( "State" => $prevHeure, "freq" => $days );
@@ -25,12 +25,6 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 	else {
 		$days[ $jourSemaine[$jour] ] = $mouvements;
 	}
-
-	// Print the line
-	// Fetch the next line
-	//extract($row);
-	//$datapie[] = array("State" => $heure , "jour" => $jour , "value" => $mouvements);
-	//$row = $query->fetch(PDO::FETCH_ASSOC);
 }
 
 //echo json_encode($row);
