@@ -1,7 +1,7 @@
 <?php
 $dbname = "sqlite:/var/www/PIRlog.db";
 $datapie = array();
-$jourSemaine = array( 0 => "Lundi", 1 => "Mardi", 2 => "Mercredi", 3 => "Jeudi", 4 => "Vendredi", 5 => "Jeudi", 6 => "Dimanche");
+$jourSemaine = array( 0 => "Dimanche", 1 => "Lundi", 2 => "Mardi", 3 => "Mercredi", 4 => "Jeudi", 5 => "Vendredi", 6 => "Samedi");
 $vecteurState = array( 0=>"00h" , 2=>"02h", 4=>"04h", 6=>"06h", 8=>"08h", 10=>"10h", 
 	12=>"12h", 14=>"14h", 16=>"16h", 18=>"18h", 20=>"20h" , 22=>"22h", 24=>"24h");
 
@@ -9,24 +9,27 @@ $vecteurState = array( 0=>"00h" , 2=>"02h", 4=>"04h", 6=>"06h", 8=>"08h", 10=>"1
 $conn = new PDO($dbname);
 
 // Query
+//%H 		hour: 00-24
+//%w 		day of week 0-6 with Sunday==0
 $Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
 $query = $conn->query($Query);
 
 $prevHeure = false;
 
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
 	extract($row);
 
-	if ($heure != $prevHeure) {
-		if ( $prevHeure != false ) {
+	if ($heure !== $prevHeure && $heure) {
+		if ( $prevHeure !== false ) {
 			$datapie[] = array( "State" => $vecteurState[$prevHeure], "freq" => $days );
 		}
 		$days = array();
 		$prevHeure = $heure;
-	}	
-	else {
-		$days[ $jourSemaine[$jour] ] = $mouvements;
 	}
+
+	if ($jour && $heure) $days[ $jourSemaine[intval($jour)] ] = $mouvements;
+
 }
 
 //echo json_encode($row);
