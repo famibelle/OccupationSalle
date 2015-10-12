@@ -242,7 +242,12 @@ function dashboard(id, fData){
 
 <script>
 var freqData;
-$.getJSON(  "dashboard.php",   function(data){ freqData = data; }   );
+$.getJSON(  
+	"dashboard.php", 
+	function(data){ 
+		dashboard( '#dashboard', data); 
+	}   
+);
 
 /*
 var freqData=[
@@ -262,7 +267,8 @@ var freqData=[
 ];
 
 var freqData = [{"State":"08h","freq":{"Mercredi":"45","Jeudi":"14","Vendredi":"179"}},{"State":"10h","freq":{"Mercredi":"400","Jeudi":"834","Vendredi":"179"}},{"State":"12h","freq":{"Mercredi":"57","Jeudi":"37","Vendredi":"134"}},{"State":"14h","freq":{"Mercredi":"468","Jeudi":"188","Vendredi":"415"}},{"State":"16h","freq":{"Mercredi":"239","Jeudi":"87","Vendredi":"674"}},{"State":"18h","freq":{"Mercredi":"20","Jeudi":"2","Vendredi":"33"}},{"State":"20h","freq":[]}];
-*/
+
 dashboard('#dashboard',freqData);
+*/
 </script>
 source http://bl.ocks.org/NPashaP/96447623ef4d342ee09b
