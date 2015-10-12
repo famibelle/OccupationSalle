@@ -12,17 +12,7 @@ $conn = new PDO($dbname);
 //%H 		hour: 00-24
 //%w 		day of week 0-6 with Sunday==0
 //$Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
-$Query = "SELECT heure, jour, mouvements
-FROM FreqDummy
-LEFT JOIN (
-	SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS hour,
-		strftime('%w', timestamp) AS day,
-		sum(motion) AS mouvements
-	FROM TxOccupationBox
-	WHERE 1
-	GROUP BY hour, day
-) ON hour = heure AND jour = day
-ORDER BY heure, jour;";
+$Query = "SELECT heure, jour, mouv FROM FreqDummy LEFT JOIN (SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS hour, strftime('%w', timestamp) AS day, sum(motion) AS mouv FROM TxOccupationBox WHERE 1 GROUP BY hour, day) ON hour = heure AND jour = day ORDER BY heure, jour;";
 
 $query = $conn->query($Query);
 
@@ -40,7 +30,7 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 		$prevHeure = $heure;
 	}
 
-	if ($jour && $heure) $days[ $jourSemaine[intval($jour)] ] = intval($mouvements);
+	$days[ $jourSemaine[intval($jour)] ] = intval($mouv);
 
 }
 
