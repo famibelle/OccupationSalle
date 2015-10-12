@@ -11,7 +11,9 @@ $conn = new PDO($dbname);
 // Query
 //%H 		hour: 00-24
 //%w 		day of week 0-6 with Sunday==0
-$Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
+//$Query = "SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS heure, strftime('%w', timestamp) AS jour, sum(motion) AS mouvements FROM TxOccupationBox WHERE 1 GROUP BY heure, jour;";
+$Query = "SELECT heure, jour, (mouv) from FreqDummy LEFT JOIN (SELECT (strftime('%H', timestamp) - strftime('%H', timestamp)%2) AS hour, strftime('%w', timestamp) AS day, sum(motion) AS mouv FROM TxOccupationBox WHERE 1 GROUP BY hour, day) ON hour = heure AND jour = day;";
+
 $query = $conn->query($Query);
 
 $prevHeure = false;
