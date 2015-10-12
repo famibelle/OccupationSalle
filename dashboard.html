@@ -44,7 +44,7 @@ rect:hover {  fill:blue; }
 <script>
 function dashboard(id, fData){
     var barColor = 'steelblue';
-    function segColor(c){ return {Lundi:"#807dba", Mardi:"#e08214",Mercredi:"#41ab5d",Jeudi:"#41aF5d",Vendredi:"#51ab5d",Samedi:"#61ab5d",Dimanche:"#A1ab5d"}[c]; }
+    function segColor(c){ return {Lundi:"#807dba", Mardi:"#e08214",Mercredi:"#A1ab5d",Jeudi:"#C1aF5d",Vendredi:"#F1ab5d",Samedi:"#61ab5d",Dimanche:"#A1ab5d"}[c]; }
     
     // compute total for each state.
     fData.forEach(function(d){d.total=d.freq.Lundi+d.freq.Mardi+d.freq.Mercredi+d.freq.Jeudi+d.freq.Vendredi+d.freq.Samedi+d.freq.Dimanche;});
