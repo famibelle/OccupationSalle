@@ -1,0 +1,409 @@
+<html>
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        <script src="http://d3js.org/d3.v3.js"></script>
+        <script src="http://code.jquery.com/jquery.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script src="js/colorbrewer.min.js"></script>
+
+
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+<style>
+    body{
+        width:1060px;
+        margin:50px auto;
+    }
+    path {  stroke: #fff; }
+    path:hover {  opacity:0.9; }
+    rect:hover {  fill:blue; }
+    .axis {  font: 10px sans-serif; }
+    .legend tr{    border-bottom:1px solid grey; }
+    .legend tr:first-child{    border-top:1px solid grey; }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {  display: none; }
+    .legend{
+        margin-bottom:76px;
+        display:inline-block;
+        border-collapse: collapse;
+        border-spacing: 0px;
+    }
+    .legend td{
+        padding:4px 5px;
+        vertical-align:bottom;
+    }
+    .legendFreq, .legendPerc{
+        align:right;
+        width:50px;
+    }
+</style>
+    <body>
+        <div class="cover">
+            <div class="navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><span>Brand</span></a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="active">
+                                <a href="#">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">Contacts</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="cover-image" style="background-image: url(https://unsplash.imgix.net/photo-1418065460487-3e41a6c84dc5?q=25&amp;fm=jpg&amp;s=127f3a3ccf4356b7f79594e05f6c840e);"></div>
+            <div class="container">
+                <div class="row">
+                    <div id="hourBox" class="col-md-12 text-center">
+                        <h1 class="text-inverse">Heading</h1>
+                        <p class="text-inverse">Lorem ipsum dolor sit amet, consectetur adipisici eli.</p>
+                        <br>
+                        <br>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                        <div id="chart"></div>
+                        <script type="text/javascript">
+                          var margin = { top: 50, right: 0, bottom: 100, left: 30 },
+                              width = 960 - margin.left - margin.right,
+                              height = 430 - margin.top - margin.bottom,
+                              gridSize = Math.floor(width / 24),
+                              legendElementWidth = gridSize*2,
+                              buckets = 127,
+                              //colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
+                          colors = colorbrewer.GnYlRd[9];
+                              days = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
+                              times = ["00h", "01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", "21h", "22h", "23h"];
+                          d3.json("hourly.php",
+                            function(error, data) {
+                              var colorScale = d3.scale.quantile()
+                                  .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
+                                  .range(colors);
+                              var svg = d3.select("#chart").append("svg")
+                                  .attr("width", width + margin.left + margin.right)
+                                  .attr("height", height + margin.top + margin.bottom)
+                                  .append("g")
+                                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                              var dayLabels = svg.selectAll(".dayLabel")
+                                  .data(days)
+                                  .enter().append("text")
+                                    .text(function (d) { return d; })
+                                    .attr("x", 0)
+                                    .attr("y", function (d, i) { return i * gridSize; })
+                                    .style("text-anchor", "end")
+                                    .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+                                    .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
+                              var timeLabels = svg.selectAll(".timeLabel")
+                                  .data(times)
+                                  .enter().append("text")
+                                    .text(function(d) { return d; })
+                                    .attr("x", function(d, i) { return i * gridSize; })
+                                    .attr("y", 0)
+                                    .style("text-anchor", "middle")
+                                    .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+                                    .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
+                              var heatMap = svg.selectAll(".hour")
+                                  .data(data)
+                                  .enter().append("rect")
+                                  .attr("x", function(d) { return d.hour * gridSize; })
+                                  .attr("y", function(d) { return d.day * gridSize; })
+                                  .attr("rx", 4)
+                                  .attr("ry", 4)
+                                  .attr("class", "hour bordered")
+                                  .attr("width", gridSize)
+                                  .attr("height", gridSize)
+                                  .style("fill", colors[0]);
+                              heatMap.transition().duration(3000)
+                                  .style("fill", function(d) { return colorScale(d.value); });
+                              heatMap.append("title").text(function(d) { return d.value; });
+                                  
+                              var legend = svg.selectAll(".legend")
+                                  .data([0].concat(colorScale.quantiles()), function(d) { return d; })
+                                  .enter().append("g")
+                                  .attr("class", "legend");
+                              legend.append("rect")
+                                .attr("x", function(d, i) { return legendElementWidth * i; })
+                                .attr("y", height)
+                                .attr("width", legendElementWidth)
+                                .attr("height", gridSize / 2)
+                                .style("fill", function(d, i) { console.log(colors[i]);  if  (d == 0) {return colors[0];} else {return colors[i];} });
+                              legend.append("text")
+                                .attr("class", "mono")
+                                .text(function(d) { return "≥ " + Math.round(d); })
+                                .attr("x", function(d, i) { return legendElementWidth * i; })
+                                .attr("y", height + gridSize);
+                          });
+                          
+                          var showTimeOccupy = function() {
+                        $.getJSON(
+                            "disponible.php",
+                            function(data){
+                                            if (data[0].secondes<60) {
+                                                    $('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">");
+                                            }
+
+                                if (data[0].secondes<300) {
+                                    $('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">");
+                                    $("#favicon").attr("href","images/occupe.ico");
+
+                                }
+                                else {
+                                    $("#favicon").attr("href","images/libre.ico");
+                                    if (data[0].Heures == 0) {
+                                        $('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
+                                    }
+                                    else {
+                                        $('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
+                                    }
+                                }
+                            }
+                        );
+                            setTimeout(showTimeOccupy, 2000);
+                          }
+                          
+                        </script>
+
+                    <div id="dashboard">
+                    </div>
+
+                    <script>
+                    function dashboard(id, fData){
+                        var barColor = 'steelblue';
+                        function segColor(c){ return {Lundi:"#ff5e3a", Mardi:"#ff9500",Mercredi:"#ffdb4c",Jeudi:"#87fc70",Vendredi:"#52edc7",Samedi:"#1ad6fd",Dimanche:"#A1ab5d"}[c]; }
+                        
+                        // compute total for each state.
+                        fData.forEach(function(d){d.total=d.freq.Lundi+d.freq.Mardi+d.freq.Mercredi+d.freq.Jeudi+d.freq.Vendredi+d.freq.Samedi+d.freq.Dimanche;});
+                        
+                        // function to handle histogram.
+                        function histoGram(fD){
+                            var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
+                            hGDim.w = 500 - hGDim.l - hGDim.r, 
+                            hGDim.h = 300 - hGDim.t - hGDim.b;
+                                
+                            //create svg for histogram.
+                            var hGsvg = d3.select(id).append("svg")
+                                .attr("width", hGDim.w + hGDim.l + hGDim.r)
+                                .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
+                                .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+
+                            // create function for x-axis mapping.
+                            var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
+                                    .domain(fD.map(function(d) { return d[0]; }));
+
+                            // Add x-axis to the histogram svg.
+                            hGsvg.append("g").attr("class", "x axis")
+                                .attr("transform", "translate(0," + hGDim.h + ")")
+                                .call(d3.svg.axis().scale(x).orient("bottom"));
+
+                            // Create function for y-axis map.
+                            var y = d3.scale.linear().range([hGDim.h, 0])
+                                    .domain([0, d3.max(fD, function(d) { return d[1]; })]);
+
+                            // Create bars for histogram to contain rectangles and freq labels.
+                            var bars = hGsvg.selectAll(".bar").data(fD).enter()
+                                    .append("g").attr("class", "bar");
+                            
+                            //create the rectangles.
+                            bars.append("rect")
+                                .attr("x", function(d) { return x(d[0]); })
+                                .attr("y", function(d) { return y(d[1]); })
+                                .attr("width", x.rangeBand())
+                                .attr("height", function(d) { return hGDim.h - y(d[1]); })
+                                .attr('fill',barColor)
+                                .on("mouseover",mouseover)// mouseover is defined below.
+                                .on("mouseout",mouseout);// mouseout is defined below.
+                                
+                            //Create the frequency labels above the rectangles.
+                            bars.append("text").text(function(d){ return d3.format(" ")(d[1])})
+                                .attr("x", function(d) { return x(d[0])+x.rangeBand()/2; })
+                                .attr("y", function(d) { return y(d[1])-5; })
+                                .attr("text-anchor", "middle");
+                            
+                            function mouseover(d){  // utility function to be called on mouseover.
+                                // filter for selected state.
+                                var st = fData.filter(function(s){ return s.State == d[0];})[0],
+                                    nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+                                   
+                                // call update functions of pie-chart and legend.    
+                                pC.update(nD);
+                                leg.update(nD);
+                            }
+                            
+                            function mouseout(d){    // utility function to be called on mouseout.
+                                // reset the pie-chart and legend.    
+                                pC.update(tF);
+                                leg.update(tF);
+                            }
+                            
+                            // create function to update the bars. This will be used by pie-chart.
+                            hG.update = function(nD, color){
+                                // update the domain of the y-axis map to reflect change in frequencies.
+                                y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
+                                
+                                // Attach the new data to the bars.
+                                var bars = hGsvg.selectAll(".bar").data(nD);
+                                
+                                // transition the height and color of rectangles.
+                                bars.select("rect").transition().duration(500)
+                                    .attr("y", function(d) {return y(d[1]); })
+                                    .attr("height", function(d) { return hGDim.h - y(d[1]); })
+                                    .attr("fill", color);
+
+                                // transition the frequency labels location and change value.
+                                bars.select("text").transition().duration(500)
+                                    .text(function(d){ return d3.format(" ")(d[1])})
+                                    .attr("y", function(d) {return y(d[1])-5; });            
+                            }        
+                            return hG;
+                        }
+                        
+                        // function to handle pieChart.
+                        function pieChart(pD){
+                            var pC ={},    pieDim ={w:250, h: 250};
+                            pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
+                                    
+                            // create svg for pie chart.
+                            var piesvg = d3.select(id).append("svg")
+                                .attr("width", pieDim.w).attr("height", pieDim.h).append("g")
+                                .attr("transform", "translate("+pieDim.w/2+","+pieDim.h/2+")");
+                            
+                            // create function to draw the arcs of the pie slices.
+                            var arc = d3.svg.arc().outerRadius(pieDim.r - 10).innerRadius(0);
+
+                            // create a function to compute the pie slice angles.
+                            var pie = d3.layout.pie().sort(null).value(function(d) { return d.freq; });
+
+                            // Draw the pie slices.
+                            piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
+                                .each(function(d) { this._current = d; })
+                                .style("fill", function(d) { return segColor(d.data.type); })
+                                .on("mouseover",mouseover).on("mouseout",mouseout);
+
+                            // create function to update pie-chart. This will be used by histogram.
+                            pC.update = function(nD){
+                                piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
+                                    .attrTween("d", arcTween);
+                            }        
+                            // Utility function to be called on mouseover a pie slice.
+                            function mouseover(d){
+                                // call the update function of histogram with new data.
+                                hG.update(fData.map(function(v){ 
+                                    return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
+                            }
+                            //Utility function to be called on mouseout a pie slice.
+                            function mouseout(d){
+                                // call the update function of histogram with all data.
+                                hG.update(fData.map(function(v){
+                                    return [v.State,v.total];}), barColor);
+                            }
+                            // Animating the pie-slice requiring a custom function which specifies
+                            // how the intermediate paths should be drawn.
+                            function arcTween(a) {
+                                var i = d3.interpolate(this._current, a);
+                                this._current = i(0);
+                                return function(t) { return arc(i(t));    };
+                            }    
+                            return pC;
+                        }
+                        
+                        // function to handle legend.
+                        function legend(lD){
+                            var leg = {};
+                                
+                            // create table for legend.
+                            var legend = d3.select(id).append("table").attr('class','legend');
+                            
+                            // create one row per segment.
+                            var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
+                                
+                            // create the first column for each segment.
+                            tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
+                                .attr("width", '16').attr("height", '16')
+                                .attr("fill",function(d){ return segColor(d.type); });
+                                
+                            // create the second column for each segment.
+                            tr.append("td").text(function(d){ return d.type;});
+
+                            // create the third column for each segment.
+                            tr.append("td").attr("class",'legendFreq')
+                                .text(function(d){ return d3.format(" ")(d.freq);});
+
+                            // create the fourth column for each segment.
+                            tr.append("td").attr("class",'legendPerc')
+                                .text(function(d){ return getLegend(d,lD);});
+
+                            // Utility function to be used to update the legend.
+                            leg.update = function(nD){
+                                // update the data attached to the row elements.
+                                var l = legend.select("tbody").selectAll("tr").data(nD);
+
+                                // update the frequencies.
+                                l.select(".legendFreq").text(function(d){ return d3.format(" ")(d.freq);});
+
+                                // update the percentage column.
+                                l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
+                            }
+                            
+                            function getLegend(d,aD){ // Utility function to compute percentage.
+                                return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq; })));
+                            }
+
+                            return leg;
+                        }
+                        
+                        // calculate total frequency by segment for all state.
+                        var tF = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'].map(function(d){ 
+                            return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
+                        });    
+                        
+                        // calculate total frequency by state for all segment.
+                        var sF = fData.map(function(d){return [d.State,d.total];});
+
+                        var hG = histoGram(sF), // create the histogram.
+                            pC = pieChart(tF), // create the pie-chart.
+                            leg= legend(tF);  // create the legend.
+                    }
+                    </script>
+
+                    <script>
+			var freqData;
+			$.getJSON(
+				"dashboard.php",
+				function(data){
+					dashboard( '#dashboard', data);
+				}
+			);
+		    </script>
+        
+    
+
+</body></html>
