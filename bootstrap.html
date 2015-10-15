@@ -11,7 +11,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
         <script src="js/colorbrewer.min.js"></script>
 
-
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
     </head>
@@ -79,11 +78,10 @@
             <div class="container">
                 <div class="row">
                     <div id="hourBox" class="col-md-12 text-center">
-                        <h1 class="text-inverse">Heading</h1>
+                        <h1 class="text-inverse">Fréquentation de la salle</h1>
                         <p class="text-inverse">Lorem ipsum dolor sit amet, consectetur adipisici eli.</p>
                         <br>
                         <br>
-                        
                     </div>
                 </div>
             </div>
@@ -167,22 +165,24 @@
                         $.getJSON(
                             "disponible.php",
                             function(data){
-                                            if (data[0].secondes<60) {
-                                                    $('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">");
-                                            }
+								if (data[0].secondes<60) {
+									document.getElementById("hourBox").innerHTML = 
+									"le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">";
+								}
 
                                 if (data[0].secondes<300) {
-                                    $('#hourBox').html("<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">");
-                                    $("#favicon").attr("href","images/occupe.ico");
-
+									document.getElementById("hourBox").innerHTML = 
+                                    "<h3>le box est occupé depuis plus de 5 mn,<p>dernier mouvement enregistré il y a " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</p></h3><img src=\"images/led-sign-inuse-red.jpg\">";
                                 }
+
                                 else {
-                                    $("#favicon").attr("href","images/libre.ico");
                                     if (data[0].Heures == 0) {
-                                        $('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
+										document.getElementById("hourBox").innerHTML = 
+										"<h3>le box est <b>libre</b> depuis " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">";
                                     }
                                     else {
-                                        $('#hourBox').html("<h3>le box est <b>libre</b> depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">");
+										document.getElementById("hourBox").innerHTML = 
+										"<h3>le box est <b>libre</b> depuis " + data[0].Heures + " heures " + data[0].Minutes + " minutes " + data[0].Secondes + " secondes</h3><img src=\"images/led-sign-available.jpg\">";
                                     }
                                 }
                             }
